@@ -6,20 +6,19 @@ import AddButton from '../components/addButton';
 import { createLane, fetchBoard } from '../data';
 
 const Board = () => {
-    const { id } = useParams();
+    const { id: boardId } = useParams();
     const [board, setBoard] = useState({});
     const [loading, setLoading] = useState(true);
     const getBoardData = async () => {
-        const response = await fetchBoard(id);
+        const response = await fetchBoard(boardId);
         setBoard(response);
         setLoading(false);
     };
     const addLane = async (text) => {
         const response = await createLane({
             title: text,
-            boardId: id,
             posts: []
-        });
+        }, boardId);
         setBoard({
             ...board,
             lanes: [...board.lanes, response]
@@ -27,7 +26,7 @@ const Board = () => {
     }
     useEffect(() => {
         getBoardData();
-    }, [id]);
+    }, [boardId]);
     return(
         <Container>
             

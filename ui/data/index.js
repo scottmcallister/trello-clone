@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:8080/api';
+const API_URL = '/api';
 
 // boards
 export const fetchAllBoards = async () => {
@@ -37,8 +37,7 @@ export const deleteBoard = async (id) => {
     const response = await fetch(`${API_URL}/boards/${id}`, {
         method: 'DELETE'
     });
-    const result = await response.json();
-    return result;
+    return response;
 }
 
 // lanes
