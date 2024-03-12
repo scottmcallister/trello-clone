@@ -11,15 +11,27 @@ function AddButton({ callback = (text) => {console.log(text)}, placeholder = 'ad
     setText(event.target.value);
     setShowButton(event.target.value.length > 0);
   };
+  const onSubmit = () => {
+    if (text.length === 0) return;
+    callback(text);
+    setText('');
+  };
+  const onKeyDownEvent = (event) => {
+    if (event.code === "Enter" || event.code === "NumpadEnter") {
+      onSubmit();
+    }
+  }
 
   return (
     <InputGroup>
-    <Form.Control type="text" placeholder={placeholder} value={text} onChange={handleInputChange} onKeyDown={(event) => {
-        if (event.code === "Enter" || event.code === "NumpadEnter") {
-            callback(text);
-        }
-    }} />
-      {showButton && <Button variant="outline-primary" onClick={() => callback(text)}>Submit</Button>}
+    <Form.Control
+      type="text"
+      placeholder={placeholder}
+      value={text}
+      onChange={handleInputChange}
+      onKeyDown={onKeyDownEvent}
+    />
+      <Button active={showButton} variant="outline-primary" onClick={onSubmit}>Submit</Button>
     </InputGroup>
   );
 }

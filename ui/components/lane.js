@@ -3,6 +3,7 @@ import { Stack } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import AddButton from './addButton';
 import { createPost } from '../data';
+import PostCard from './postCard';
 
 const Lane = ({ lane }) => {
   const [posts, setPosts] = useState(lane.posts);
@@ -22,11 +23,9 @@ const Lane = ({ lane }) => {
         <Card.Text>
             <Stack direction="vertical" gap={3}>
                 {posts.map(post => (
-                    <Card key={post.id}>
-                        <Card.Body>
-                            <Card.Text>{post.content}</Card.Text>
-                        </Card.Body>
-                    </Card>
+                  <React.Fragment key={post.id}>
+                    <PostCard post={post}/>
+                  </React.Fragment>
                 ))}
                 <AddButton callback={addPost} placeholder="add post" />
             </Stack>
