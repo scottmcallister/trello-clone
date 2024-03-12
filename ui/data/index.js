@@ -77,8 +77,7 @@ export const deleteLane = async (id) => {
     const response = await fetch(`${API_URL}/lanes/${id}`, {
         method: 'DELETE'
     });
-    const result = await response.json();
-    return result;
+    return response;
 }
 
 // posts
@@ -113,4 +112,10 @@ export const updatePost = async (id, data) => {
     });
     const result = await response.json();
     return result;
+}
+export const deletePost = async (id) => {
+    const response = await fetch(`${API_URL}/posts/${id}`, {
+        method: 'DELETE'
+    });
+    return response;
 }
