@@ -3,37 +3,47 @@ import Card from 'react-bootstrap/Card';
 import { Stack } from 'react-bootstrap';
 import { User, Trash, Edit, Film } from 'react-feather';
 import Button from 'react-bootstrap/Button';
-import { deletePost } from '../data';
+import { deletePost, updatePost } from '../data';
 import { DataContext } from '../state/dataProvider';
 import GifPicker from 'gif-picker-react';
 
 const PostCard = ({ post }) => {
     const data = useContext(DataContext);
     const [hide, setHide] = useState(false);
+    const [currentPost, setCurrentPost] = useState(post);
     const [gifSelectorOpen, setGifSelectorOpen] = useState(false);
     const clearPost = () => {
-        deletePost(post.id);
+        deletePost(currentPost.id);
         setHide(true);
     }
+    const updateGif = async (imageUrl) => {
+        console.log('updateGif', imageUrl)
+        const response = await updatePost(currentPost.id, { ...currentPost, imageUrl });
+        console.log(response);
+        currentPost.imageUrl = imageUrl;
+        setCurrentPost({...currentPost, imageUrl});
+    }
     const showGifSelector = gifSelectorOpen && data?.apiKey;
+    const showGif = currentPost.imageUrl && !showGifSelector;
     
     return hide ?
     null
     : (
         <Card border={'secondary'}>
         <Card.Body>
-            <Card.Title>{post.content}</Card.Title>
+            <Card.Title>{currentPost.content}</Card.Title>
             <Card.Subtitle>
             <User />
-            {post.author}
+            {currentPost.author}
             </Card.Subtitle>
             <Card.Body>
+                { showGif && <img src={currentPost.imageUrl} alt="gif" />}
                 { showGifSelector 
                     && <GifPicker
                             tenorApiKey={data?.apiKey}
-                            onGifClick={(gif) => {
+                            onGifClick={async (gif) => {
                                 setGifSelectorOpen(false);
-                                console.log(gif);
+                                await updateGif(gif.url);
                             }}
                         /> }
                 <Stack direction="horizontal" style={{ paddingTop: '5px' }}>

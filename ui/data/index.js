@@ -103,6 +103,7 @@ export const createPost = async (data, laneId) => {
     return result;
 }
 export const updatePost = async (id, data) => {
+    console.log('updatePost', id, data);
     const response = await fetch(`${API_URL}/posts/${id}`, {
         method: 'PUT',
         headers: {

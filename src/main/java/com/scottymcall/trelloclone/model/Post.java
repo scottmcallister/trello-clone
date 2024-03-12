@@ -25,6 +25,9 @@ public class Post {
     @Column(nullable = false)
     private String author;
 
+    @Column(nullable = true)
+    private String imageUrl;
+
     @Column(nullable = false)
     private LocalDateTime timestamp;
 
@@ -71,6 +74,14 @@ public class Post {
 
     public void setLane(Lane lane) {
         this.lane = lane;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
     }
     
 }

@@ -46,6 +46,7 @@ public class PostController {
         .map(existingPost -> {
             existingPost.setContent(post.getContent());
             existingPost.setAuthor(post.getAuthor());
+            existingPost.setImageUrl(post.getImageUrl());
             return postRepository.save(existingPost);
         })
         .orElseThrow(() -> new RuntimeException("Post not found"));
