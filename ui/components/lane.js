@@ -20,7 +20,7 @@ const Lane = ({ lane }) => {
     <Card style={{ minWidth: '200px' }}>
       <Card.Body>
         <Card.Title>{lane.title}</Card.Title>
-        <Card.Text>
+        <Card.Body>
             <Stack direction="vertical" gap={3}>
                 {posts.map(post => (
                   <React.Fragment key={post.id}>
@@ -29,7 +29,7 @@ const Lane = ({ lane }) => {
                 ))}
                 <AddButton callback={addPost} placeholder="add post" />
             </Stack>
-        </Card.Text>
+        </Card.Body>
       </Card.Body>
     </Card>
   );
