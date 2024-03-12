@@ -5,20 +5,27 @@ import java.util.List;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
+import com.scottymcall.trelloclone.model.Lane;
 import com.scottymcall.trelloclone.model.Post;
 import com.scottymcall.trelloclone.repository.PostRepository;
+import com.scottymcall.trelloclone.repository.LaneRepository;
 
 @RestController
 @RequestMapping("/api/posts")
 public class PostController {
     private final PostRepository postRepository;
+    private final LaneRepository laneRepository;
 
-    public PostController(PostRepository postRepository) {
+    public PostController(PostRepository postRepository, LaneRepository laneRepository) {
         this.postRepository = postRepository;
+        this.laneRepository = laneRepository;
     }
 
     @PostMapping
-    public Post createPost(@RequestBody @NonNull Post post) {
+    public Post createPost(@RequestBody @NonNull Post post, @RequestParam @NonNull Long laneId) {
+        Lane lane = laneRepository.findById(laneId)
+            .orElseThrow(() -> new RuntimeException("Lane not found"));
+        post.setLane(lane);
         return postRepository.save(post);
     }
 

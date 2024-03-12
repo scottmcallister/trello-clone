@@ -92,8 +92,8 @@ export const fetchPost = async (id) => {
     const data = await response.json();
     return data;
 }
-export const createPost = async (data) => {
-    const response = await fetch(`${API_URL}/posts`, {
+export const createPost = async (data, laneId) => {
+    const response = await fetch(`${API_URL}/posts?laneId=${laneId}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
