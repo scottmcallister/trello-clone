@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Stack, Spinner, Container, Card } from 'react-bootstrap';
+import { Stack, Spinner, Container, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Lane from '../components/lane';
 import AddButton from '../components/addButton';
 import { createLane, fetchBoard, deleteLane } from '../data';
+import { RefreshCw } from 'react-feather';
 
 const Board = () => {
     const { id: boardId } = useParams();
@@ -41,6 +42,9 @@ const Board = () => {
             {loading ? <Spinner /> : (
                 <>
                     <h1>{board.title}</h1>
+                    <div className='py-3'>
+                        <Button variant="outline-success" onClick={getBoardData}><RefreshCw /></Button>
+                    </div>
                     <Stack direction="horizontal" gap={3} style={{ alignItems: 'baseline' }}>
                         {board.lanes.map(lane => (
                             <Lane key={lane.id} lane={lane} onClose={() => removeLane(lane.id)} />
