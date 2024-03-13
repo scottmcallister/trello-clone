@@ -13,7 +13,7 @@ public class EnvController {
     private String apiKey;
 
     @Value("${TRELLO_CLONE_PASSWORD}")
-    private String password = "1234";
+    private String password;
 
     @GetMapping("/api/key")
     public String getApiKey() {
