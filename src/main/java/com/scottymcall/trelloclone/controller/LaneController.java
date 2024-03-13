@@ -55,7 +55,8 @@ public class LaneController {
     public Lane updateLane(@PathVariable @NonNull Long id, @RequestBody Lane lane) {
         return laneRepository.findById(id)
         .map(existingLane -> {
-            existingLane.setPosts(lane.getPosts());
+            existingLane.getPosts().clear();
+            existingLane.getPosts().addAll(lane.getPosts());
             existingLane.setTitle(lane.getTitle());
             return laneRepository.save(existingLane);
         })

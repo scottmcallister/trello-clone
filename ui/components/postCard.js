@@ -7,6 +7,7 @@ import { deletePost, updatePost } from '../data';
 import { DataContext } from '../state/dataProvider';
 import GifPicker from 'gif-picker-react';
 import GifImage from './gifimage';
+import EditableText from './editableText';
 
 const PostCard = ({ post }) => {
     const data = useContext(DataContext);
@@ -24,6 +25,12 @@ const PostCard = ({ post }) => {
         currentPost.imageUrl = imageUrl;
         setCurrentPost({...currentPost, imageUrl});
     }
+    const updateContent = async (content) => {
+        const response = await updatePost(currentPost.id, { ...currentPost, content });
+        console.log(response);
+        currentPost.content = content;
+        setCurrentPost({...currentPost, content});
+    }
     const showGifSelector = gifSelectorOpen && data?.apiKey;
     const showGif = currentPost.imageUrl && !showGifSelector;
     
@@ -32,7 +39,7 @@ const PostCard = ({ post }) => {
     : (
         <Card border={'secondary'}>
         <Card.Body>
-            <Card.Title>{currentPost.content}</Card.Title>
+            <Card.Title><EditableText givenText={post.content} onSubmit={updateContent} /></Card.Title>
             <Card.Subtitle>
             <User />
             {currentPost.author}
