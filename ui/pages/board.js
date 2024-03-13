@@ -3,7 +3,7 @@ import { Stack, Spinner, Container, Card } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Lane from '../components/lane';
 import AddButton from '../components/addButton';
-import { createLane, fetchBoard } from '../data';
+import { createLane, fetchBoard, deleteLane } from '../data';
 
 const Board = () => {
     const { id: boardId } = useParams();
@@ -24,6 +24,14 @@ const Board = () => {
             lanes: [...board.lanes, response]
         });
     }
+    const removeLane = async (id) => {
+        await deleteLane(id);
+        setBoard({
+            ...board,
+            lanes: board.lanes.filter(lane => lane.id !== id)
+        });
+    }
+
     useEffect(() => {
         getBoardData();
     }, [boardId]);
@@ -34,10 +42,10 @@ const Board = () => {
                 <>
                     <h1>{board.title}</h1>
                     <Stack direction="horizontal" gap={3} style={{ alignItems: 'baseline' }}>
-                        {board.lanes.map(list => (
-                            <Lane key={list.id} lane={list} />
+                        {board.lanes.map(lane => (
+                            <Lane key={lane.id} lane={lane} onClose={() => removeLane(lane.id)} />
                         ))}
-                        <div>
+                        <div style={{ minWidth: '400px', maxWidth: '400px' }}>
                             <AddButton callback={addLane} placeholder="add lane" />
                         </div>
                     </Stack>

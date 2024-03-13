@@ -38,6 +38,14 @@ const PostCard = ({ post }) => {
             {currentPost.author}
             </Card.Subtitle>
             <Card.Body>
+                <Stack direction="horizontal" style={{ paddingTop: '5px', paddingBottom: '25px' }}>
+                    <Button variant="outline-primary" size="sm" className="mx-5" onClick={() => setGifSelectorOpen(!gifSelectorOpen)}>
+                        <Film />
+                    </Button>
+                    <Button variant="outline-danger" size="sm" className="mx-5" onClick={clearPost}>
+                        <Trash />
+                    </Button>
+                </Stack>
                 { showGif && <GifImage src={currentPost.imageUrl} onClose={() => updateGif(undefined)} />}
                 { showGifSelector 
                     && <GifPicker
@@ -47,17 +55,6 @@ const PostCard = ({ post }) => {
                                 await updateGif(gif.url);
                             }}
                         /> }
-                <Stack direction="horizontal" style={{ paddingTop: '5px' }}>
-                    <Button variant="outline-primary" size="sm" className="mx-4" onClick={() => setGifSelectorOpen(true)}>
-                        <Film />
-                    </Button>
-                    <Button variant="outline-success" size="sm" className="mx-4">
-                        <Edit />
-                    </Button>
-                    <Button variant="outline-danger" size="sm" className="mx-4" onClick={clearPost}>
-                        <Trash />
-                    </Button>
-                </Stack>
             </Card.Body>
         </Card.Body>
         </Card>

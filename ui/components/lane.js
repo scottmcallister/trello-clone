@@ -4,8 +4,9 @@ import Card from 'react-bootstrap/Card';
 import AddButton from './addButton';
 import { createPost } from '../data';
 import PostCard from './postCard';
+import { Trash } from 'react-feather';
 
-const Lane = ({ lane }) => {
+const Lane = ({ lane, onClose }) => {
   const [posts, setPosts] = useState(lane.posts);
   const author = 'John Doe'; // TODO: replace with actual author
   const addPost = async (content) => {
@@ -17,17 +18,20 @@ const Lane = ({ lane }) => {
     setPosts([...posts, response]);
 }
   return (
-    <Card style={{ minWidth: '200px' }}>
+    <Card style={{ minWidth: '400px' }}>
       <Card.Body>
-        <Card.Title>{lane.title}</Card.Title>
+        <Card.Title>
+          {lane.title}
+          <button style={{float: 'right'}} className="btn btn-outline-danger btn-sm" onClick={onClose}><Trash /></button>
+        </Card.Title>
         <Card.Body>
             <Stack direction="vertical" gap={3}>
+                <AddButton callback={addPost} placeholder="add post" />
                 {posts.map(post => (
                   <React.Fragment key={post.id}>
                     <PostCard post={post}/>
                   </React.Fragment>
                 ))}
-                <AddButton callback={addPost} placeholder="add post" />
             </Stack>
         </Card.Body>
       </Card.Body>
