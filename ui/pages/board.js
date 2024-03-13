@@ -33,13 +33,13 @@ const Board = () => {
             {loading ? <Spinner /> : (
                 <>
                     <h1>{board.title}</h1>
-                    <Stack direction="horizontal" gap={3}>
+                    <Stack direction="horizontal" gap={3} style={{ alignItems: 'baseline' }}>
                         {board.lanes.map(list => (
                             <Lane key={list.id} lane={list} />
                         ))}
-                        <Card style={{ minWidth: '200px' }}>
+                        <div>
                             <AddButton callback={addLane} placeholder="add lane" />
-                        </Card>
+                        </div>
                     </Stack>
                 </>
             )}

@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import { deletePost, updatePost } from '../data';
 import { DataContext } from '../state/dataProvider';
 import GifPicker from 'gif-picker-react';
+import GifImage from './gifimage';
 
 const PostCard = ({ post }) => {
     const data = useContext(DataContext);
@@ -37,7 +38,7 @@ const PostCard = ({ post }) => {
             {currentPost.author}
             </Card.Subtitle>
             <Card.Body>
-                { showGif && <img src={currentPost.imageUrl} alt="gif" />}
+                { showGif && <GifImage src={currentPost.imageUrl} onClose={() => updateGif(undefined)} />}
                 { showGifSelector 
                     && <GifPicker
                             tenorApiKey={data?.apiKey}
