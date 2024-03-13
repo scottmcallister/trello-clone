@@ -120,3 +120,9 @@ export const deletePost = async (id) => {
     });
     return response;
 }
+
+// misc
+export const checkPassword = async (password) => {
+    const response = await fetch(`${API_URL}/password?password=${password}`);
+    return response;
+}
