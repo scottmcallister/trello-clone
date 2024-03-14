@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { checkPassword } from '../data/';
+import { Button, Form, InputGroup } from 'react-bootstrap';
 
 const PasswordProtected = ({ password, children }) => {
     const [input, setInput] = useState('');
@@ -23,17 +24,21 @@ const PasswordProtected = ({ password, children }) => {
     };
 
     return failure ? 
-    <div><img src='/dennis.gif'></img></div>
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <img src='/dennis.gif' alt='Dennis GIF' />
+    </div>
     : (
         <div>
             {!isPasswordCorrect && (
-                <form onSubmit={handleSubmit}>
-                    <label>
-                        Password:
-                        <input type="password" value={input} onChange={handleChange} />
-                    </label>
-                    <input type="submit" value="Submit" />
-                </form>
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                    <div style={{maxWidth: '600px'}}>
+                        <InputGroup>
+                            <Form.Label>Password:</Form.Label>
+                            <Form.Control type="password" value={input} onChange={handleChange} onKeyPress={(event) => event.key === 'Enter' && handleSubmit(event)} />
+                            <Button onClick={handleSubmit} type="submit">Submit</Button>
+                        </InputGroup>
+                    </div>
+                </div>
             )}
             {isPasswordCorrect && children}
             
