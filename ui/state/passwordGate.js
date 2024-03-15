@@ -14,9 +14,9 @@ const PasswordProtected = ({ password, children }) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const response = await checkPassword(input);
-        const text = await response.text();
-        console.log(text);
-        if (text === "Correct") {
+        const status = await response.status;
+        console.log(status);
+        if (status === 200) {
             setIsPasswordCorrect(true);
         } else {
             setFailure(true);

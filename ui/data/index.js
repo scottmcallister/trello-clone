@@ -123,6 +123,19 @@ export const deletePost = async (id) => {
 
 // misc
 export const checkPassword = async (password) => {
-    const response = await fetch(`${API_URL}/password?password=${password}`);
+    // const response = await fetch(`${API_URL}/posts?laneId=${laneId}`, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(data)
+    // });
+    const response = await fetch(`${API_URL}/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ password, username: 'Test User' })
+    });
     return response;
 }
