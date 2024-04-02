@@ -11,6 +11,8 @@ export TRELLO_CLONE_DB_USER="<some user>"
 export TRELLO_CLONE_DB_PASSWORD="<some password>"
 ```
 
+
+
 Build the UI:
 
 ```
@@ -20,6 +22,8 @@ or
 ```
 npm run watch
 ```
+
+
 
 Run the service:
 
